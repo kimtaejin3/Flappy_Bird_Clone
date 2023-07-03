@@ -4,7 +4,8 @@ const ctx = canvas.getContext("2d");
 canvas.width = 500;
 canvas.height = 700;
 
-const gravity = 0.6;
+const gravity = 0.4;
+let isGameOver = false;
 
 class Bird {
   constructor({ position, velocity }) {
@@ -20,15 +21,22 @@ class Bird {
   }
 
   update() {
-    this.draw();
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
+    this.draw();
 
-    if (this.velocity.y < -10) {
-      this.velocity.y = -10;
+    if (this.velocity.y < -8) {
+      this.velocity.y = -8;
     }
 
-    if (this.position.y + this.height + this.velocity.y >= canvas.height) {
+    // if (this.position.y + this.height + this.velocity.y >= canvas.height) {
+    //   isGameOver = true;
+    //   this.velocity.y = 0;
+    // } else {
+    //   this.velocity.y += gravity;
+    // }
+    if (this.position.y + this.height >= canvas.height) {
+      isGameOver = true;
       this.velocity.y = 0;
     } else {
       this.velocity.y += gravity;
@@ -77,6 +85,9 @@ const obstacle_list = [];
 let frames = 0;
 function animate() {
   requestAnimationFrame(animate);
+
+  if (isGameOver) return;
+
   ctx.fillStyle = "#ddd";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -87,6 +98,21 @@ function animate() {
         obstacle_list.splice(index, 1);
       }, 0);
     }
+
+    // collision detection
+    if (
+      bird.position.x + bird.width >= obstacle.position.x &&
+      bird.position.x <= obstacle.position.x + obstacle.width &&
+      (bird.position.y <= obstacle.position.y + obstacle.height ||
+        bird.position.y + bird.height >=
+          obstacle.position.y + obstacle.height + obstacle.gap)
+    ) {
+      console.log("충돌");
+      bird.velocity.x = 0;
+      bird.velocity.y = 0;
+      isGameOver = true;
+    }
+
     obstacle.update();
   });
 
@@ -107,6 +133,8 @@ function animate() {
     );
   }
 
+  console.log(bird.velocity.y);
+
   frames++;
 }
 
@@ -115,9 +143,7 @@ animate();
 addEventListener("keydown", (e) => {
   switch (e.key) {
     case " ":
-      console.log(bird.velocity.y);
       bird.velocity.y -= 20;
-
       break;
   }
 });
