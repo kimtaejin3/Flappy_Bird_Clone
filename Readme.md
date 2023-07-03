@@ -7,7 +7,7 @@
 1. ~~Create Bird~~ (2023-07-02)
 2. ~~Add gravity~~ (2023-07-02)
 3. ~~Make bird fly~~ (2023-07-02)
-4. Create obstacle and move obstacle
+4. ~~Create obstacle and move obstacle~~ (2023-07-02)
 5. Game over - collision detect
 6. Add sprite - bird
 7. Add sprite - ground
