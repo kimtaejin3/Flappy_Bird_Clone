@@ -15,7 +15,7 @@
 
 ## 중간결과 기록
 
-will be added
+<img width="360" height="450" src="./mid-result.png"/>
 
 ## 최종기록
 
