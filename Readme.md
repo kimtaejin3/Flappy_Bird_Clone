@@ -7,10 +7,11 @@
 3. ~~Make bird fly~~ (2023-07-02)
 4. ~~Create and move obstaclse~~ (2023-07-03)
 5. ~~Make Game over - collision detect~~ (2023-07-03)
-6. Add sprite - bird
-7. Add sprite - ground
-8. Add sprite - obstacle
-9. Add music and sound effect
+6. ~~Add sprite - background~~ (2023-07-04)
+7. ~~Add sprite - bird~~ (2023-07-04)
+8. Add sprite - ground
+9. Add sprite - obstacle
+10. refactoring
 
 ## 중간결과 기록
 
