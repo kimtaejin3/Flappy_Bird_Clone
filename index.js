@@ -59,16 +59,24 @@ class Bird {
   }
 
   draw() {
+    // ctx.drawImage(
+    //   this.image,
+    //   (this.image.width / this.framesMax) * this.framesCurrent,
+    //   0,
+    //   this.image.width / this.framesMax,
+    //   this.image.height,
+    //   this.position.x,
+    //   this.position.y,
+    //   (this.image.width / this.framesMax) * this.scale,
+    //   this.image.height * this.scale
+    // );
     ctx.drawImage(
       this.image,
-      (this.image.width / this.framesMax) * this.framesCurrent,
-      0,
-      this.image.width / this.framesMax,
-      this.image.height,
+
       this.position.x,
       this.position.y,
-      (this.image.width / this.framesMax) * this.scale,
-      this.image.height * this.scale
+      this.width * this.scale,
+      this.height * this.scale
     );
   }
 
@@ -78,6 +86,11 @@ class Bird {
     if (this.framesElapsed % this.framesHold === 0) {
       if (this.framesCurrent < this.framesMax - 1) {
         this.framesCurrent++;
+        if (this.framesCurrent === 1) {
+          this.image.src = "./assets/bluebird-midflap.png";
+        } else {
+          this.image.src = "./assets/bluebird-upflap.png";
+        }
       } else {
         this.framesCurrent = 0;
       }
@@ -140,9 +153,9 @@ const bird = new Bird({
   },
   width: 30,
   height: 30,
-  imageSrc: "./assets/basebird2.png",
+  imageSrc: "./assets/bluebird-downflap.png",
   framesMax: 3,
-  scale: 1.4,
+  scale: 1.3,
 });
 
 const obstacle_list = [];
