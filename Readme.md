@@ -9,8 +9,8 @@
 5. ~~Make Game over - collision detect~~ (2023-07-03)
 6. ~~Add sprite - background~~ (2023-07-04)
 7. ~~Add sprite - bird~~ (2023-07-04)
-8. Add sprite - ground
-9. Add sprite - obstacle
+8. ~~Add sprite - obstacle~~ (2023-07-05)
+9. Add sprite - ground
 10. refactoring
 
 ## 중간결과 기록

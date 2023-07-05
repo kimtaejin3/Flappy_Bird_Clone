@@ -4,144 +4,12 @@ const ctx = canvas.getContext("2d");
 canvas.width = 500;
 canvas.height = 700;
 
+// global variables
 const gravity = 0.35;
 let isGameOver = false;
 let score = 0;
 
-class Sprite {
-  constructor({ position, imageSrc, width, height, scale = 1, framesMax = 1 }) {
-    this.position = position;
-    this.image = new Image();
-    this.image.src = imageSrc;
-    this.width = width;
-    this.height = height;
-    this.scale = scale;
-    this.framesMax = framesMax;
-  }
-
-  draw() {
-    ctx.drawImage(
-      this.image,
-
-      this.position.x,
-      this.position.y,
-      this.width,
-      this.height
-    );
-  }
-
-  update() {
-    this.draw();
-  }
-}
-
-class Bird {
-  constructor({
-    position,
-    imageSrc,
-    velocity,
-    width,
-    height,
-    scale = 1,
-    framesMax = 1,
-  }) {
-    this.position = position;
-    this.velocity = velocity;
-    this.image = new Image();
-    this.image.src = imageSrc;
-    this.width = width;
-    this.height = height;
-    this.scale = scale;
-    this.framesMax = framesMax;
-    this.framesCurrent = 0;
-    this.framesElapsed = 0;
-    this.framesHold = 8;
-  }
-
-  draw() {
-    // ctx.drawImage(
-    //   this.image,
-    //   (this.image.width / this.framesMax) * this.framesCurrent,
-    //   0,
-    //   this.image.width / this.framesMax,
-    //   this.image.height,
-    //   this.position.x,
-    //   this.position.y,
-    //   (this.image.width / this.framesMax) * this.scale,
-    //   this.image.height * this.scale
-    // );
-    ctx.drawImage(
-      this.image,
-
-      this.position.x,
-      this.position.y,
-      this.width * this.scale,
-      this.height * this.scale
-    );
-  }
-
-  animateFrames() {
-    this.framesElapsed++;
-
-    if (this.framesElapsed % this.framesHold === 0) {
-      if (this.framesCurrent < this.framesMax - 1) {
-        this.framesCurrent++;
-        if (this.framesCurrent === 1) {
-          this.image.src = "./assets/bluebird-midflap.png";
-        } else {
-          this.image.src = "./assets/bluebird-upflap.png";
-        }
-      } else {
-        this.framesCurrent = 0;
-      }
-    }
-  }
-
-  update() {
-    this.position.x += this.velocity.x;
-    this.position.y += this.velocity.y;
-    this.draw();
-    this.animateFrames();
-
-    if (this.velocity.y < -8) {
-      this.velocity.y = -8;
-    }
-
-    if (this.position.y + this.height >= canvas.height) {
-      isGameOver = true;
-      this.velocity.y = 0;
-    } else {
-      this.velocity.y += gravity;
-    }
-  }
-}
-
-class Obstacle {
-  constructor({ position, velocity, height, gap }) {
-    this.position = position;
-    this.velocity = velocity;
-    this.width = 70;
-    this.height = height;
-    this.gap = gap;
-  }
-
-  draw() {
-    ctx.fillStyle = "royalblue";
-    ctx.fillRect(this.position.x, 0, this.width, this.height);
-    ctx.fillRect(
-      this.position.x,
-      this.position.y + this.height + this.gap,
-      this.width,
-      canvas.height - this.height - this.gap
-    );
-  }
-
-  update() {
-    this.draw();
-    this.position.x += this.velocity.x;
-  }
-}
-
+// object variables
 const bird = new Bird({
   position: {
     x: canvas.width / 2 - 80,
@@ -149,7 +17,7 @@ const bird = new Bird({
   },
   velocity: {
     x: 0,
-    y: 3,
+    y: 0,
   },
   width: 30,
   height: 30,
@@ -171,6 +39,8 @@ const background = new Sprite({
 });
 
 let frames = 0;
+
+// animation loop
 function animate() {
   requestAnimationFrame(animate);
 
@@ -219,8 +89,10 @@ function animate() {
           x: -4,
           y: 0,
         },
+        width: 70,
         height: Math.floor(Math.random() * (canvas.height - 180)) + 10,
         gap: 140,
+        imageSrc: "./assets/pipe-green.png",
       })
     );
   }
