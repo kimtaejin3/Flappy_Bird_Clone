@@ -131,7 +131,10 @@ class Obstacle extends Sprite {
 
     ctx.restore();
 
-    let d2 = 531 - (canvas.height - this.height - this.gap);
+    let d2 = 0;
+    if (this.height < 531) {
+      d2 = 531 - (canvas.height - this.height - this.gap);
+    }
     ctx.drawImage(
       this.image,
       this.position.x,
