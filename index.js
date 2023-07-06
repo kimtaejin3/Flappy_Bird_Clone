@@ -38,6 +38,20 @@ const background = new Sprite({
   height: canvas.height,
 });
 
+const ground = new Ground({
+  position: {
+    x: 0,
+    y: canvas.height - 23,
+  },
+  velocity: {
+    x: -4,
+    y: 0,
+  },
+  imageSrc: "./assets/base.png",
+  width: 1000,
+  height: 50,
+});
+
 let frames = 0;
 
 // animation loop
@@ -51,8 +65,8 @@ function animate() {
   ctx.fillStyle = "#ddd";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   background.update();
-
   bird.update();
+
   obstacle_list.forEach((obstacle, index) => {
     if (obstacle.position.x + obstacle.width <= 0) {
       setTimeout(() => {
@@ -62,21 +76,22 @@ function animate() {
     }
 
     // collision detection
-    if (
-      bird.position.x + bird.width >= obstacle.position.x &&
-      bird.position.x <= obstacle.position.x + obstacle.width &&
-      (bird.position.y <= obstacle.position.y + obstacle.height ||
-        bird.position.y + bird.height >=
-          obstacle.position.y + obstacle.height + obstacle.gap)
-    ) {
-      console.log("충돌");
-      bird.velocity.x = 0;
-      bird.velocity.y = 0;
-      isGameOver = true;
-    }
+    // if (
+    //   bird.position.x + bird.width >= obstacle.position.x &&
+    //   bird.position.x <= obstacle.position.x + obstacle.width &&
+    //   (bird.position.y <= obstacle.position.y + obstacle.height ||
+    //     bird.position.y + bird.height >=
+    //       obstacle.position.y + obstacle.height + obstacle.gap)
+    // ) {
+    //   console.log("충돌");
+    //   bird.velocity.x = 0;
+    //   bird.velocity.y = 0;
+    //   isGameOver = true;
+    // }
 
     obstacle.update();
   });
+  ground.update();
 
   if (frames % 150 === 0) {
     obstacle_list.push(

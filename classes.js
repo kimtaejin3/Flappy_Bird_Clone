@@ -40,6 +40,7 @@ class Bird extends Sprite {
     this.framesCurrent = 0;
     this.framesElapsed = 0;
     this.framesHold = 8;
+    this.angle = 0;
   }
 
   animateFrames() {
@@ -59,17 +60,59 @@ class Bird extends Sprite {
     }
   }
 
+  draw() {
+    if (this.velocity.y > 0) {
+      ctx.save();
+      ctx.translate(
+        this.position.x + this.width / 2,
+        this.position.y + this.height / 2
+      );
+      ctx.rotate(this.angle);
+      ctx.translate(
+        -this.position.x - this.width / 2,
+        -this.position.y - this.height / 2
+      );
+      ctx.drawImage(
+        this.image,
+        this.position.x,
+        this.position.y,
+        this.width * this.scale,
+        this.height * this.scale
+      );
+      ctx.restore();
+    } else {
+      ctx.save();
+      ctx.translate(
+        this.position.x + this.width / 2,
+        this.position.y + this.height / 2
+      );
+      ctx.rotate(0);
+      this.angle = 0;
+      ctx.translate(
+        -this.position.x - this.width / 2,
+        -this.position.y - this.height / 2
+      );
+      ctx.drawImage(
+        this.image,
+        this.position.x,
+        this.position.y,
+        this.width * this.scale,
+        this.height * this.scale
+      );
+    }
+  }
+
   update() {
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
     this.draw();
     this.animateFrames();
-
+    this.angle += 0.01;
     if (this.velocity.y < -8) {
       this.velocity.y = -8;
     }
 
-    if (this.position.y + this.height >= canvas.height) {
+    if (this.position.y + this.height >= canvas.height - 23) {
       isGameOver = true;
       this.velocity.y = 0;
     } else {
@@ -147,5 +190,28 @@ class Obstacle extends Sprite {
   update() {
     this.draw();
     this.position.x += this.velocity.x;
+  }
+}
+
+class Ground extends Sprite {
+  constructor({
+    position,
+    velocity,
+    width,
+    scale = 1,
+    framesMax = 1,
+    imageSrc,
+    height,
+  }) {
+    super({ position, imageSrc, width, height, scale, framesMax });
+    this.velocity = velocity;
+  }
+
+  update() {
+    this.draw();
+    this.position.x += this.velocity.x;
+    if (this.position.x + this.width < canvas.width) {
+      this.position.x = 0;
+    }
   }
 }
