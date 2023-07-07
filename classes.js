@@ -142,16 +142,11 @@ class Obstacle extends Sprite {
   }
 
   draw() {
-    // ctx.fillStyle = "royalblue";
-    // ctx.fillRect(this.position.x, 0, this.width, this.height);
-    // ctx.drawImage(this.image, 0, canvas.height - 600, this.width, 431);
-
     ctx.save();
     ctx.translate(
       this.position.x + this.width / 2,
       this.position.y + this.height / 2
     );
-    // ctx.rotate(3.14);
     ctx.rotate(Math.PI);
     ctx.translate(
       -this.position.x - this.width / 2,

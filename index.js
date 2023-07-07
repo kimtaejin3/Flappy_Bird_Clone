@@ -76,18 +76,18 @@ function animate() {
     }
 
     // collision detection
-    // if (
-    //   bird.position.x + bird.width >= obstacle.position.x &&
-    //   bird.position.x <= obstacle.position.x + obstacle.width &&
-    //   (bird.position.y <= obstacle.position.y + obstacle.height ||
-    //     bird.position.y + bird.height >=
-    //       obstacle.position.y + obstacle.height + obstacle.gap)
-    // ) {
-    //   console.log("충돌");
-    //   bird.velocity.x = 0;
-    //   bird.velocity.y = 0;
-    //   isGameOver = true;
-    // }
+    if (
+      bird.position.x + bird.width >= obstacle.position.x &&
+      bird.position.x <= obstacle.position.x + obstacle.width &&
+      (bird.position.y <= obstacle.position.y + obstacle.height ||
+        bird.position.y + bird.height >=
+          obstacle.position.y + obstacle.height + obstacle.gap)
+    ) {
+      console.log("충돌");
+      bird.velocity.x = 0;
+      bird.velocity.y = 0;
+      isGameOver = true;
+    }
 
     obstacle.update();
   });
